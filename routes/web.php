@@ -1,9 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Maatwebsite\Excel\Row;
+use App\Http\Controllers\LoginController;
 
 Route::get('/', ['App\Http\Controllers\LandingController', 'index'])->name('home');
-Route::post('/login', ['App\Http\Controllers\Auth\AuthController', 'login'])->name('login');
+Route::post('login',[LoginController::class,'authenticate'])->name('login');
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('vote', [App\Http\Controllers\VoteController::class, 'index'])->name('vote');
+// Route::post('/login', ['App\Http\Controllers\Auth\AuthController', 'login'])->name('login');
 Route::get('/generate', ['App\Http\Controllers\TestController', 'generate']);
 Route::get('/admin', ['App\Http\Controllers\Admin\AdminController', 'index'])->name('admin.home')->middleware('admin');
 Route::get('/admin/login', ['App\Http\Controllers\Auth\AdminAuthController', 'showLoginForm'])->name('admin.login');

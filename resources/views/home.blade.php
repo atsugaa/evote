@@ -17,6 +17,10 @@
       Login menggunakan Scan Barcode
     </button>
 
+    @error('barcode')
+      gagal masuk
+    @enderror
+
     <!-- Modal Bootstrap untuk login menggunakan scan barcode -->
     <div class="modal fade" id="modal11" tabindex="-1" role="dialog" aria-labelledby="scanBarcodeModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -30,7 +34,10 @@
               @csrf
               <div class="mb-3">
                 <label for="barcodeData" class="form-label">Scan Barcode</label>
-                <input type="text" class="form-control" id="barcodeData" name="barcode_data" placeholder="Tempelkan barcode di sini">
+                <input autofocus type="text" class="form-control" id="barcode_data" name="barcode_data" placeholder="Tempelkan barcode di sini">
+                @error('barcode_data')
+                  Error
+                @enderror
               </div>
               <button type="submit" class="btn btn-primary">Login</button>
             </form>
