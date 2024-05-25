@@ -8,51 +8,78 @@
 </head>
 <body>
     <!-- Tampilkan informasi pemilihan -->
-    <h1>{{ $pemilihan['nama'] }}</h1>
-    <p>{{ $pemilihan['deskripsi'] }}</p>
-    <p>Pemilihan dimulai pada: {{ $pemilihan['mulai'] }}</p>
-    <p>Pemilihan berakhir pada: {{ $pemilihan['selesai'] }}</p>
+    <h1>{{ $pemilihan['NAMA_VOTING'] }}</h1>
+    <p>{{ $pemilihan['DESKRIPSI_VOTING'] }}</p>
+    <p>Pemilihan dimulai pada: {{ $pemilihan['MULAI_VOTING'] }}</p>
+    <p>Pemilihan berakhir pada: {{ $pemilihan['SELESAI_VOTING'] }}</p>
      <!-- Tombol untuk membuka modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal11">
-      Login menggunakan Scan Barcode
-    </button>
+     <h1>QR Code Scanner</h1>
+    {{-- Scanner --}}
+    <label for="barcodeData" class="form-label">Scan Barcode via Camera</label>
+    <div class="card bg-white shadow rounded-3 p-3 border-0">
+      <div class="w-4">
+        <video id="preview" ></video>
+      </div>
+      <form action="{{ route('login') }}" method="POST" id="form">
+        @csrf
+        <input type="hidden" id="barcode_data" name="barcode_data">
+      </form>
+    </div>
 
+
+    @error('barcode_data')
+      Gagal Masuk format Salah
+    @enderror
     @error('barcode')
-      gagal masuk
+      Hahahah
     @enderror
 
-    <!-- Modal Bootstrap untuk login menggunakan scan barcode -->
-    <div class="modal fade" id="modal11" tabindex="-1" role="dialog" aria-labelledby="scanBarcodeModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="scanBarcodeModalLabel">Login menggunakan Scan Barcode</h5>
-          </div>
-          <div class="modal-body">
-            <!-- Form untuk memindai barcode -->
-            <form action="{{ route('login') }}" method="post">
-              @csrf
-              <div class="mb-3">
-                <label for="barcodeData" class="form-label">Scan Barcode</label>
-                <input autofocus type="text" class="form-control" id="barcode_data" name="barcode_data" placeholder="Tempelkan barcode di sini">
-                @error('barcode_data')
-                  Error
-                @enderror
-              </div>
-              <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <label for="">Scan Barcode via scanner</label>
+    <form action="{{ route('login') }}" method="post">
+      @csrf
+      <input type="text" name="barcode_data">
+      <input type="submit">
+    </form>
+    <label for="">Login Manual</label>
+    <form action="{{ route('loginManual') }}" method="post">
+      @csrf
+      <label for="">NISN</label>
+      <input type="text" name="nisn">
+      <label for="">NAMA</label>
+      <input type="text" name="nama">
+      <input type="submit">
+    </form>
 </body>
+<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script type="text/javascript">
-    document.addEventListener('keypress', function(e) {
-        if (e.keyCode === 13) { // ASCII code for Enter key
-            var barcode = e.target.value;
-            // Kirim kode barcode ke server
-            // Anda dapat menggunakan AJAX untuk mengirimkan kode barcode ke server Laravel
-        }
+
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+    scanner.addListener('scan', function (content) {
+      console.log(content);
     });
+
+    Instascan.Camera.getCameras().then(function (cameras) {
+      if (cameras.length > 0) {
+        scanner.start(cameras[0]);
+      } else {
+        console.error('No cameras found.');
+      }
+    }).catch(function (e) {
+      console.error('Error accessing video stream:', e);
+    });
+
+    scanner.addListener('scan',function(c){
+      document.getElementById('barcode_data').value = c;
+      
+      document.getElementById('form').submit();
+    })
+    // document.addEventListener('keypress', function(e) {
+    //     if (e.keyCode === 13) { // ASCII code for Enter key
+    //         var barcode = e.target.value;
+    //         // Kirim kode barcode ke server
+    //         // Anda dapat menggunakan AJAX untuk mengirimkan kode barcode ke server Laravel
+    //     }
+    // });
 </script>
 </html>

@@ -1,16 +1,23 @@
 <?php
+namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use Illuminate\Support\Facades\Route;
 use Maatwebsite\Excel\Row;
-use App\Http\Controllers\LoginController;
+use GuzzleHttp\Middleware;
 
-Route::get('/', ['App\Http\Controllers\LandingController', 'index'])->name('home');
+// User 
+Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::post('login',[LoginController::class,'authenticate'])->name('login');
+Route::post('loginManual',[LoginController::class,'authenticateManual'])->name('loginManual');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('vote', [App\Http\Controllers\VoteController::class, 'index'])->name('vote');
+Route::get('vote', [VoteController::class, 'index'])->name('vote')->middleware('siswa');
+Route::get('pilih', [VoteController::class, 'store'])->name('vote')->middleware('siswa');
 // Route::post('/login', ['App\Http\Controllers\Auth\AuthController', 'login'])->name('login');
+
+// Admin
 Route::get('/generate', ['App\Http\Controllers\TestController', 'generate']);
-Route::get('/admin', ['App\Http\Controllers\Admin\AdminController', 'index'])->name('admin.home')->middleware('admin');
+Route::get('/admin', [ 'App\Http\Controllers\Admin\AdminController' ,'index'])->name('admin.home')->middleware('admin');
 Route::get('/admin/login', ['App\Http\Controllers\Auth\AdminAuthController', 'showLoginForm'])->name('admin.login');
 Route::post('/admin/login', ['App\Http\Controllers\Auth\AdminAuthController', 'login'])->name('admin.login.submit');
 Route::get('/admin/logout', ['App\Http\Controllers\Auth\AdminAuthController', 'logout'])->name('admin.logout')->middleware('admin');

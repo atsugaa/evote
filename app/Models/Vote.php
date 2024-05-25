@@ -17,6 +17,8 @@ class Vote extends Model
         'WAKTU_VOTE',
     ];
 
+    
+
     public function voting()
     {
         return $this->belongsTo(Voting::class, 'ID_VOTING', 'ID_VOTING');

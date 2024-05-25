@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Voting;
 
 class LandingController extends Controller
 {
@@ -15,6 +16,6 @@ class LandingController extends Controller
             'selesai' => '2024-05-20',
         ];
 
-        return view('home', compact('pemilihan'));
+        return view('home',["pemilihan" => Voting::first()] );
     }
 }
