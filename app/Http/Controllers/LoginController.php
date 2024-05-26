@@ -40,15 +40,16 @@ class LoginController extends Controller
         $nama_siswa = $barcode[0];
 
         return $this->cekSiswa($request,$nisn_siswa,$nama_siswa);
-
+        
     }
-
+    
     public function authenticateManual(Request $request){
         
         $request->validate([
             'nama' => "required|min:3|max:50",
             'nisn' => "required|min:10|max:10"
         ]);
+        
 
         return $this->cekSiswa($request ,$request->nisn,$request->nama);
     }
