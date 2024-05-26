@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" >
 <head>
     <title>Landing Page</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+@vite('resources/css/app.css')
+<body class="bg-slate-50">
+  <nav class="flex justify-center items-center gap-x-4 text-white w-full p-2 rounded-b-xl bg-gradient-to-r from-[#46428E] to-[#3572B5]">
+    <img src="{{ asset('images/logo Evote 1.png') }}" alt="">
+    <h2 class="text-lg">E-Vote PKM-PM</h2>
+  </nav>
+  <main class="flex justify-center py-20">
+    <div class="flex h-[85vh] w-[90vw] drop-shadow-lg rounded-xl overflow-hidden bg-white">
+      <div class="h-full w-[55%]" style="background-image: url-({{ asset('images/logo Evote 1.png') }})"  >
+        <div class="w-full h-full"></div>
+      </div>
+    </div>
+  </main>
     <!-- Tampilkan informasi pemilihan -->
     <h1>{{ $pemilihan['NAMA_VOTING'] }}</h1>
     <p>{{ $pemilihan['DESKRIPSI_VOTING'] }}</p>
@@ -50,6 +59,7 @@
       <input type="submit">
     </form>
 </body>
+@vite('resources/js/app.js')
 <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 <script type="text/javascript">
 
