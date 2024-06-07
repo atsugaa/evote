@@ -42,9 +42,9 @@ class AdminAuthController extends Controller
                 $request->session()->regenerate();
                 return redirect()->intended('/admin');
             }
-            return redirect()->back()->withErrors(['error' => "*password salah"])->withInput($request->only('ID_ADMIN'));
+            return redirect()->back()->withErrors(['error' => "Password salah !"])->withInput($request->only('ID_ADMIN'));
         }
-        return redirect()->back()->withErrors(['error' => "*ID tidak terdaftar"])->withInput($request->only('ID_ADMIN'));
+        return redirect()->back()->withErrors(['error' => "ID tidak terdaftar !"])->withInput($request->only('ID_ADMIN'));
     }
 
 
