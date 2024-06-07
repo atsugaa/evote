@@ -31,7 +31,6 @@ class LoginController extends Controller
             'barcode_data' => "required|min:13|max:50",
         ]);
         $barcode = explode('/', $request->barcode_data);
-
         if (count($barcode) !== 2) {
             return redirect()->back()->withErrors(['barcode' => 'Invalid barcode format']);
         }

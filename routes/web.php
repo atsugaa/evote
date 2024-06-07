@@ -7,6 +7,9 @@ use Maatwebsite\Excel\Row;
 use GuzzleHttp\Middleware;
 
 // User 
+Route::get('test', function(){
+    return view('test');
+});
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::post('login',[LoginController::class,'authenticate'])->name('login');
 Route::post('/loginManual',[LoginController::class,'authenticateManual'])->name('loginManual');

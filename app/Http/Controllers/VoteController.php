@@ -20,12 +20,13 @@ class VoteController extends Controller
         $id_vote = Voting::first()["ID_VOTING"];
        
         $lastVoting = Vote::orderBy('ID_VOTE', 'desc')->first();
-        dd($lastVoting->ID_VOTE);
+        
 
-        if (!$lastVoting) {
+        if (!isset($lastVoting->getAttributes()['ID_VOTE'])) {
             $nextID = 'X0001';
         } else {
-            $lastID = substr($lastVoting->ID_VOTE, 1);
+            $lastID = (int)substr($lastVoting->getAttributes()['ID_VOTE'], 1);
+            
             $nextID = 'X' . str_pad($lastID + 1, 4, '0', STR_PAD_LEFT);
         }
 
