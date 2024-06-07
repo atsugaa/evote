@@ -20,7 +20,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('vote');
         } else {
-            return redirect()->back()->withErrors(['barcode' => 'Invalid barcode or student not found']);
+            return redirect()->back()->withErrors(['barcode' => 'NISN atau Nama tidak valid']);
         }
 
     }
