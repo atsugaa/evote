@@ -22,7 +22,7 @@ class VoteController extends Controller
         $lastVoting = Vote::orderBy('ID_VOTE', 'desc')->first();
         
 
-        if (!isset($lastVoting->getAttributes()['ID_VOTE'])) {
+        if (! $lastVoting) {
             $nextID = 'X0001';
         } else {
             $lastID = (int)substr($lastVoting->getAttributes()['ID_VOTE'], 1);

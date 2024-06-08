@@ -20,7 +20,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('vote');
         } else {
-            return redirect()->back()->withErrors(['barcode' => 'Invalid barcode or student not found']);
+            return redirect()->back()->withErrors(['barcode_error' => 'Barcode/Nama & NISN Salah']);
         }
 
     }
@@ -32,25 +32,31 @@ class LoginController extends Controller
         ]);
         $barcode = explode('/', $request->barcode_data);
         if (count($barcode) !== 2) {
-            return redirect()->back()->withErrors(['barcode' => 'Invalid barcode format']);
+            return redirect()->back()->withErrors(['barcode_error' => 'Format Tidak Sesuai']);
         }
 
         $nisn_siswa = $barcode[1];
         $nama_siswa = $barcode[0];
 
         return $this->cekSiswa($request,$nisn_siswa,$nama_siswa);
+
+        return redirect()->back()->withErrors(['barcode_error' => 'Format Tidak Sesuai']);
         
     }
     
     public function authenticateManual(Request $request){
         
-        $request->validate([
+        $credentials = $request->validate([
             'nama' => "required|min:3|max:50",
             'nisn' => "required|min:10|max:10"
         ]);
-        
 
-        return $this->cekSiswa($request ,$request->nisn,$request->nama);
+        if($credentials){
+            return $this->cekSiswa($request ,$request->nisn,$request->nama);
+        }
+
+        return redirect()->back()->withErrors(['barcode_error' => 'Format Tidak Sesuai']);
+
     }
 
 
