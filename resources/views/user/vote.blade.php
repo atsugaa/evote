@@ -5,9 +5,9 @@ $img=['0.jpeg','1.jpg']?>
     @section('content')
 
         <section class="m-16 p-12 rounded-xl bg-gradient-to-r from-[#46428E] to-[#3572B5] text-white text-center">
-            <h2 class="text-4xl font-bold mb-5">E-VOTE PEMILIHAN KETUA OSIS</h2>
-            <p class="text-lg mb-5">Pilihlah Ketua dan Wakil Ketua OSIS yang dapat menghasilkan <br> program-program yang bermanfaat bagi seluruh siswa</p>
-            <div class="text-black bg-white rounded-full py-2 px-6 w-fit mx-auto font-bold text-lg">OSIS SMAS ISLAM DIPONEGORO  GONDANG  2024/2025</div>
+            <h2 class="text-4xl font-bold mb-5">E-VOTE PEMILIHAN KETUA {{ $pemilihan['NAMA_VOTING'] }}</h2>
+            <p class="text-lg mb-5">Pilihlah Ketua dan Wakil Ketua {{ $pemilihan['NAMA_VOTING'] }} yang dapat menghasilkan <br> program-program yang bermanfaat bagi seluruh siswa</p>
+            <div class="text-black bg-white rounded-full py-2 px-6 w-fit mx-auto font-bold text-lg">SMAS ISLAM DIPONEGORO  GONDANG  2024/2025</div>
         </section>
         <main class="flex flex-wrap justify-evenly items-center px-24 gap-28 pb-16">
             @foreach ( $Calons as $i => $calon )

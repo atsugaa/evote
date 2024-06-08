@@ -12,7 +12,7 @@ class VoteController extends Controller
 {
     public function index()
     {
-        return view('user.vote',["Calons"=> Calon::all()]);
+        return view('user.vote',["Calons"=> Calon::all()], ["pemilihan" => Voting::first()]);
     }
 
     public function store(Request $request)

@@ -7,15 +7,12 @@ use Maatwebsite\Excel\Row;
 use GuzzleHttp\Middleware;
 
 // User 
-Route::get('test', function(){
-    return view('test');
-});
 Route::get('/', [LandingController::class, 'index'])->name('home');
 Route::post('login',[LoginController::class,'authenticate'])->name('login');
 Route::post('/loginManual',[LoginController::class,'authenticateManual'])->name('loginManual');
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-Route::get('vote', [VoteController::class, 'index'])->name('vote')->middleware('siswa');
-Route::get('pilih', [VoteController::class, 'store'])->name('voting')->middleware('siswa');
+Route::get('vote', [VoteController::class, 'index'])->name('votes')->middleware('siswa');
+Route::get('pilih', [VoteController::class, 'store'])->name('vote')->middleware('siswa');
 // Route::post('/login', ['App\Http\Controllers\Auth\AuthController', 'login'])->name('login');
 
 // Admin

@@ -70,7 +70,6 @@
 $(document).ready(function() {
     var selectedCandidates = [];
 
-    // Function to check if all candidates have been selected
     function toggleAddCandidateButton() {
         var allCandidatesSelected = true;
         $('select[name="candidates[]"]').each(function() {
