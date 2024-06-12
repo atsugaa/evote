@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ config('app.name', 'Laravel') }}</title>
+    @vite('resources/css/app.css')
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -42,34 +43,6 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @if(count($errors) > 0 )
-        <div class="content-header mb-0 pb-0">
-            <div class="container-fluid">
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <ul class="p-0 m-0" style="list-style: none;">
-                        @foreach($errors->all() as $error)
-                        <li>{{$error}}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
-        @endif
-        @if(session()->has('message'))
-            <div class="content-header mb-0 pb-0">
-                <div class="container-fluid">
-                    <div class="mb-0 alert alert-{{ session()->get('alert-type') }} alert-dismissible fade show" role="alert">
-                        <strong>{{ session()->get('message') }}</strong>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div> 
-                </div><!-- /.container-fluid -->
-            </div>
-        @endif
         @yield('content')
     </div>
     <!-- /.content-wrapper -->
@@ -97,6 +70,7 @@
 <!-- AdminLTE App -->
 
 
-@yield('scripts')
+@vite('resources/js/app.js')
+@yield('script')
 </body>
 </html>

@@ -3,15 +3,17 @@
 namespace App\Imports;
 
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use App\Models\User;
 
-class UsersImport implements ToModel
+class UsersImport implements ToModel, WithHeadingRow
 {
     public function model(array $row)
-    {
+    {   
         return new User([
-            'NISN' => $row[1],
-            'NAMA' => strtoupper($row[0]),
+            'NISN' => $row['nisn'],
+            'NAMA' => strtoupper($row['nama']),
+            'STATUS' => 0,
         ]);
     }
 }

@@ -24,16 +24,6 @@
                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="form-group">
-                            <label for="STATUS">Status</label>
-                            <select class="form-control @error('STATUS') is-invalid @enderror" id="STATUS" name="STATUS" required>
-                                <option value="1">Sudah Memilih</option>
-                                <option value="0" selected>Belum Memilih</option>
-                            </select>
-                            @error('STATUS')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </form>
                 </div>

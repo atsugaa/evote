@@ -16,6 +16,12 @@ class UserController extends Controller {
 
         $users = User::query();
 
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $users->where('NAMA', 'like', "%$searchTerm%")
+                  ->orWhere('NISN', 'like', "%$searchTerm%");
+        }
+
         if ($status !== null) {
             $users->where('STATUS', $status);
         }
@@ -27,14 +33,14 @@ class UserController extends Controller {
     public function uploadExcel(Request $request)
     {
         $request->validate([
-            'excel' => 'required|file|mimes:xls,xlsx|max:10240',
+            'excel' => 'file|mimes:xls,xlsx|max:10240',
         ]);
 
         $file = $request->file('excel');
 
         Excel::import(new UsersImport, $file);
 
-        return redirect()->back()->with('success', 'Data siswa berhasil diunggah dan ditambahkan ke tabel users.');
+        return redirect()->back()->with('success', 'Data siswa berhasil diunggah dan ditambahkan ke database.');
     }
 
     public function create()
@@ -45,9 +51,8 @@ class UserController extends Controller {
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'NISN' => 'required|unique:users|max:10',
-            'NAMA' => 'required|string|max:64',
-            'STATUS' => 'required|boolean',
+            'NISN' => 'required|unique:users|max:10|numeric',
+            'NAMA' => 'required|max:64|alpha',
         ]);
 
         if ($validator->fails()) {
@@ -58,7 +63,7 @@ class UserController extends Controller {
 
         User::create($request->all());
 
-        return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan.');
+        return redirect()->route('users.index')->with('success', 'Data siswa berhasil ditambahkan.');
     }
 
     public function edit($id)
@@ -72,8 +77,8 @@ class UserController extends Controller {
         $user = User::findOrFail($id);
 
         $validator = Validator::make($request->all(), [
-            'NAMA' => 'required|string|max:64',
-            'STATUS' => 'required|boolean',
+            'NAMA' => 'required|alpha|max:64',
+            'NISN' => 'required|unique:users|numeric|max:10',
         ]);
 
         if ($validator->fails()) {
@@ -84,13 +89,13 @@ class UserController extends Controller {
 
         $user->update($request->all());
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
+        return redirect()->route('users.index')->with('success', 'Data siswa berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'User berhasil dihapus.');
+        return redirect()->route('users.index')->with('success', 'Data siswa berhasil dihapus.');
     }
 }
