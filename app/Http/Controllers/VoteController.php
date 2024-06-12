@@ -37,8 +37,8 @@ class VoteController extends Controller
             "NISN" =>$request->user
         ]);
 
-        Auth::guard('web')->logout();
-        return redirect()->route('home');
+        // Auth::guard('web')->logout();
+        return back()->with('success',"Terimakasih Sudah Memilih");
 
     }
 

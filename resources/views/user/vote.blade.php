@@ -3,7 +3,27 @@ $img=['0.jpeg','1.jpg']?>
 @extends('app')
     @section('title','Vote')
     @section('content')
-
+        @if(session()->has('success'))
+            <div tabindex="-1" class="flex overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="p-4 w-full max-w-md max-h-full ">
+                    <div class="bg-white rounded-lg shadow dark:bg-gray-700 bg-gradient-to-b from-[#454490] to-[#366EB2]">
+                        <div class="p-4 md:p-5 text-center">
+                            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+                            <h2>
+                                {{ session('success') }}
+                            </h2>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class=" font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">OK</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div modal-backdrop="" class="bg-gray-900/50 dark:bg-gray-900/80 fixed inset-0 z-40"></div>
+        @endif
         <section class="m-16 p-12 rounded-xl bg-gradient-to-r from-[#46428E] to-[#3572B5] text-white text-center">
             <h2 class="text-4xl font-bold mb-5">E-VOTE PEMILIHAN KETUA {{ $pemilihan['NAMA_VOTING'] }}</h2>
             <p class="text-lg mb-5">Pilihlah Ketua dan Wakil Ketua {{ $pemilihan['NAMA_VOTING'] }} yang dapat menghasilkan <br> program-program yang bermanfaat bagi seluruh siswa</p>
@@ -51,10 +71,7 @@ $img=['0.jpeg','1.jpg']?>
         </main>
         
         
-        <form method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button type="submit" class="text-white">Logout</button>
-        </form>
+        
     @endsection
 </body>
 </html>
