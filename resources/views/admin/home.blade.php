@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<!-- Content Header (Page header) -->
+<!-- Header Konten (Header Halaman) -->
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -13,7 +13,7 @@
 </div>
 <!-- /.content-header -->
 
-<!-- Main content -->
+<!-- Konten Utama -->
 <div class="content">
     <div class="container-fluid">
         <div class="row">
@@ -44,7 +44,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h3>Hasil Pemilihan {{ $detailSuara }}</h3>
+                        <h3>Hasil Pemilihan</h3>
                         <canvas id="pieChart" style="height:250px"></canvas>
                     </div>
                 </div>
@@ -57,7 +57,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <!-- /.row -->
     </div><!-- /.container-fluid -->
@@ -71,10 +70,10 @@
     var myPieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: ['Calon 1', 'Calon 2', 'Calon 3'], // Ganti dengan nama calon Anda
+            labels: @json($labels),
             datasets: [{
                 label: 'Jumlah Suara',
-                data: [10, 20, 15], // Ganti dengan jumlah suara untuk setiap calon
+                data: @json($data),
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)',
                     'rgba(54, 162, 235, 0.5)',
