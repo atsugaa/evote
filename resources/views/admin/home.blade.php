@@ -53,6 +53,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h3>Detail Pemilihan</h3>
+                        <p>Jumlah siswa sudah memilih : {{$jumlahMemilih}}</p>
+                        <p>Jumlah siswa belum memilih : {{$jumlahBelumMemilih}}</p>
                         <!-- Isi dengan detail pemilihan -->
                     </div>
                 </div>
