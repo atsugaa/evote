@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Voting;
 use App\Models\Vote;
+use App\Models\User;
+use App\Models\Calon;
 
 class AdminController extends Controller
 {
@@ -21,10 +23,16 @@ class AdminController extends Controller
         // Mendapatkan detail calon dalam voting
         $detailCalon = $pemilihan->calonVotings;
 
-        // Mendapatkan jumlah suara yang memilih calon
-        $detailSuara = Vote::with('voting', 'calon', 'user')->get();
+        // Mendapatkan jumlah suara yang memilih calon menggunakan join dan agregasi
+        $detailSuara = Vote::join('calon', 'vote.id_calon', '=', 'calon.id_calon')
+                            ->select('calon.ketua_calon', \DB::raw('COUNT(vote.id_calon) as suara_count'))
+                            ->groupBy('calon.ketua_calon')
+                            ->get();
 
-        return view('admin.home', compact('totalUsers', 'totalCalon', 'totalAdmin', 'detailCalon', 'detailSuara'), ["pemilihan" => Voting::first()]);
+        // Menyiapkan data untuk diagram pie
+        $labels = $detailSuara->pluck('ketua_calon');
+        $data = $detailSuara->pluck('suara_count');
+
+        return view('admin.home', compact('totalUsers', 'totalCalon', 'totalAdmin', 'detailCalon', 'labels', 'data', 'pemilihan'));
     }
 }
-
