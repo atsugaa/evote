@@ -33,6 +33,10 @@ class AdminController extends Controller
         $labels = $detailSuara->pluck('ketua_calon');
         $data = $detailSuara->pluck('suara_count');
 
-        return view('admin.home', compact('totalUsers', 'totalCalon', 'totalAdmin', 'detailCalon', 'labels', 'data', 'pemilihan'));
+        // Menghitung jumlah yang sudah memilih
+        $jumlahMemilih = Vote::distinct('nisn')->count();
+        $jumlahBelumMemilih = $totalUsers - $jumlahMemilih;
+
+        return view('admin.home', compact('totalUsers', 'totalCalon', 'totalAdmin', 'detailCalon', 'labels', 'data', 'pemilihan', 'jumlahMemilih', 'jumlahBelumMemilih'));
     }
 }

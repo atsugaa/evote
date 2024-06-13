@@ -205,13 +205,6 @@ return [
             'date' => 'Tanggal tidak valid',
             'after_or_equal' => 'Tanggal selesai voting harus setelah tanggal :date',
         ],
-        'candidates' => [
-            'required' => 'Calon tidak boleh kosong',
-            'array' => 'Calon hanya berisikan array',
-            'min:1' => 'Minimal terdapat 1 calon',
-        'candidates.*' => [
-            'exists' => 'Calon sudah ada',
-        ],
         'KETUA_CALON' => [
             'required' => 'Calon ketua tidak boleh kosong',
         ],
@@ -235,6 +228,7 @@ return [
             'min:3' => 'Minimal terdiri dari 3 huruf',
             'max:50' => 'Nama tidak lebih dari 50 karakter',
             'alpha' => 'Nama hanya terdiri dari huruf',
+        ],
         'nisn' => [
             'required' => 'NISN tidak boleh kosong',
             'min:10' => 'Hanya terdiri dari :min karakter',

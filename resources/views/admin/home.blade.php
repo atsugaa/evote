@@ -45,7 +45,11 @@
                 <div class="card">
                     <div class="card-body">
                         <h3>Hasil Pemilihan</h3>
-                        <canvas id="pieChart" style="height:250px"></canvas>
+                        <?php if (count($data) > 0) { ?>
+                            <canvas id="pieChart" style="height:250px"></canvas>
+                        <?php } else { ?>
+                            <h3 class="text-danger">Masih belum ada voting dilakukan</h3>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -53,6 +57,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h3>Detail Pemilihan</h3>
+                        <p>Jumlah siswa sudah memilih : {{$jumlahMemilih}}</p>
+                        <p>Jumlah siswa belum memilih : {{$jumlahBelumMemilih}}</p>
                         <!-- Isi dengan detail pemilihan -->
                     </div>
                 </div>
