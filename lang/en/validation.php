@@ -175,23 +175,34 @@ return [
         'NISN' => [
             'required' => 'NISN tidak boleh kosong',
             'unique' => 'NISN sudah terdaftar di database',
-            'max' => 'NISN tidak boleh lebih dari :max karakter',
-            'numeric' => 'NISN hanya terdiri dari angka',
+            'max' => [
+                'string' => 'NISN tidak boleh lebih dari :max karakter',
+            ],
+            'min' => [
+                'string' => 'NISN tidak boleh kurang dari :min karakter',
+            ],
+            'regex' => 'NISN hanya terdiri dari angka',
         ],
         'NAMA' => [
             'required' => 'Nama tidak boleh kosong',
-            'alpha' => 'Nama hanya berisikan huruf',
-            'max' => 'Nama tidak boleh lebih dari 64 huruf',
+            'regex' => 'Nama tidak valid',
+            'max' => [
+                'string' => 'Nama tidak boleh lebih dari 64 huruf',
+            ],
         ], 
         'excel' => [
             'file' => 'Hanya berupa file',
             'mimes' => 'Hanya menerima file :values',
-            'max' => 'Ukuran file tidak lebih dari :max kb',
+            'max' => [
+                'file' => 'Ukuran file tidak lebih dari :max kb',
+            ],
         ],
         'NAMA_VOTING' => [
             'required' => 'Nama voting tidak boleh kosong',
             'alpha' => 'Hanya terdiri dari huruf',
-            'max' => 'Nama tidak boleh lebih dari :max karakter',
+            'max' => [
+                'string' => 'Nama tidak boleh lebih dari :max karakter',
+            ],
         ],
         'DESKRIPSI_VOTING' => [
             'required' => 'Deskripsi voting tidak boleh kosong',
@@ -221,7 +232,9 @@ return [
             'required' => 'Gambar calon tidak boleh kosong',
             'image' => 'Hanya berupa gambar',
             'mimes' => 'Hanya menerima file :values',
-            'max' => 'Ukuran gambar tidak lebih dari :max kb',
+            'max' => [
+                'file' => 'Ukuran gambar tidak lebih dari :max kb',
+            ],
         ],
         'nama' => [
             'required' => 'Nama tidak boleh kosong',

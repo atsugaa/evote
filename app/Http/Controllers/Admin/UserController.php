@@ -51,8 +51,8 @@ class UserController extends Controller {
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'NISN' => 'required|unique:users|max:10|numeric',
-            'NAMA' => 'required|max:64|alpha',
+            'NISN' => 'required|unique:users|min:10|max:10|regex:/^[0-9]+$/',
+            'NAMA' => 'required|max:64|regex:/^[a-zA-Z][a-zA-Z.\' ]*$/',
         ]);
 
         if ($validator->fails()) {
@@ -61,7 +61,10 @@ class UserController extends Controller {
                         ->withInput();
         }
 
-        User::create($request->all());
+        User::create([
+            'NISN' => $request->input('NISN'),
+            'NAMA' => strtoupper($request->input('NAMA')),
+        ]);
 
         return redirect()->route('users.index')->with('success', 'Data siswa berhasil ditambahkan.');
     }
